@@ -13,4 +13,4 @@ WORKDIR /home/petclinic/
 EXPOSE 80
 
 # Run the JAR file
-ENTRYPOINT ["java", "-jar", "spring-petclinic-3.1.0-SNAPSHOT.jar"]
+ENTRYPOINT [ "java", "-jar", "/home/petclinic/spring-petclinic-3.1.0-SNAPSHOT.jar" ]
