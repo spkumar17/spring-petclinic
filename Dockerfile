@@ -4,7 +4,7 @@ FROM openjdk:22-jdk-bullseye
 RUN mkdir -p /home/petclinic/
 
 # Copy the JAR file into the container
-COPY /var/lib/jenkins/workspace/petclinic/target/spring-petclinic-3.3.0-SNAPSHOT.jar /home/petclinic/
+COPY ./target/spring-petclinic-3.3.0-SNAPSHOT.jar /home/petclinic/
 
 # Set the working directory
 WORKDIR /home/petclinic/
@@ -13,4 +13,4 @@ WORKDIR /home/petclinic/
 EXPOSE 80
 
 # Run the JAR file
-ENTRYPOINT [ "java", "-jar", "/home/petclinic/spring-petclinic-3.1.0-SNAPSHOT.jar" ]
+ENTRYPOINT [ "java", "-jar", "/home/petclinic/spring-petclinic-3.3.0-SNAPSHOT.jar" ]
