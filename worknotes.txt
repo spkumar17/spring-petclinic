@@ -1,0 +1,59 @@
+install java:
+
+sudo apt update
+sudo apt install openjdk-17-jre
+
+install jenkins:
+
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+install Docker:
+
+sudo apt update
+sudo apt install docker.io
+
+Grant Jenkins user and Ubuntu user permission to docker deamon.
+sudo su - 
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
+systemctl restart docker
+
+---------------------------------------------------------------------------
+install sonar:
+
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo apt install docker-compose
+
+service docker restart
+sudo usermod -aG docker $USER
+newgrp docker
+sudo chmod 666 /var/run/docker.sock
+sudo systemctl restart docker
+
+
+# TO ISNTALL SONARQUBE USING DOCKER RUN BELOW COMMAND  
+docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+
+sonarqube webhooks enable to notify jenkins after quality gate passed: ---> serverip:8080/sonarqube-webhook/
+
+-----------------------------------
+email notification:
+SMTP server name : smtp.gmail.com
+username:prasannakumarsinganamalla@gmail.com
+smtp port: 465
+enable: ssl
+use SMTP authentication
+------------------------------------
