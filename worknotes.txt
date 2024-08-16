@@ -95,9 +95,17 @@ total 16
 -rwxr-xr-x 1 root root  221 Aug  4 13:54 user.sql
 
 SOURCE user.sql
+
+USE your_database_name;  ---> USE petclinic;
+
 SOURCE schema.sql
 SOURCE data.sql
 
 RUN THIS COMMANDS AND CREATE TABELES AND DATA IN IT 
 
-
+verify using below:
+SHOW DATABASES;
+USE petclinic;
+show TABELES;
+SELECT * FROM owners;
+SELECT * FROM pet;
