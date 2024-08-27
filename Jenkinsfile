@@ -114,7 +114,6 @@ pipeline {
                             <p>Build Status: ${currentBuild.currentResult}</p>
                             <p>Build Number: ${BUILD_NUMBER}</p>
                             <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
-                            <p>Trivy Scan Results are attached as <a href="${BUILD_URL}artifact/trivyfs.html">trivyfs.html</a>.</p>
                         </body>
                     </html>
                 """,
@@ -122,7 +121,6 @@ pipeline {
                 to: "${Receiver_email}",
                 from: 'jenkins@example.com',
                 replyTo: 'jenkins@example.com',
-                attachmentsPattern: 'target/trivyfs.html' // Path to the HTML file
 
             )
         }
