@@ -17,6 +17,7 @@ pipeline {
             steps {
                 git branch: 'main', url: 'https://github.com/spkumar17/spring-petclinic.git'
             }
+        }
 
         stage('compile') {
             steps {
