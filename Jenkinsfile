@@ -13,9 +13,22 @@ pipeline {
     }
     
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/spkumar17/spring-petclinic.git'
+            }
+
         stage('compile') {
             steps {
                 sh 'mvn compile'
+            }
+        }
+
+        stage("Trivy file scan"){
+            steps{
+                script{
+                    sh'trivy fs --format table -o trivyfs.html . '  #scans the filesystem display it in humanreadable format (tabler) stores output in trivyfs.html file in html format scan the fs in current working dir
+                }
             }
         }
         
@@ -100,13 +113,16 @@ pipeline {
                             <p>Build Status: ${currentBuild.currentResult}</p>
                             <p>Build Number: ${BUILD_NUMBER}</p>
                             <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                            <p>Trivy Scan Results are attached as <a href="${BUILD_URL}artifact/trivyfs.html">trivyfs.html</a>.</p>
                         </body>
                     </html>
                 """,
                 mimeType: 'text/html',
                 to: "${Receiver_email}",
                 from: 'jenkins@example.com',
-                replyTo: 'jenkins@example.com'
+                replyTo: 'jenkins@example.com',
+                attachmentsPattern: 'target/trivyfs.html' // Path to the HTML file
+
             )
         }
     }
