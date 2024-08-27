@@ -9,10 +9,7 @@ pipeline {
     environment {
         SONAR_AUTH_TOKEN = credentials('SONAR_AUTH_TOKEN') // Assumes you have stored your token in Jenkins Credentials
         DOCKER_REGISTRY_CREDENTIALS = credentials('docker-credentials')
-        emailext=credentials('Receiver_email')
-
-
-        
+        Receiver_email = credentials('Receiver_email')
     }
     
     stages {
@@ -87,25 +84,27 @@ pipeline {
             }    
         }
     }
+
+        post {
+        always {
+            emailext (
+                subject: "Pipeline Status: ${BUILD_NUMBER}",
+                body: """
+                    <html>
+                        <body>
+                            <p>Build Status: ${BUILD_STATUS}</p>
+                            <p>Build Number: ${BUILD_NUMBER}</p>
+                            <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                        </body>
+                    </html>
+                """,
+                mimeType: 'text/html',
+                to: "${Receiver_email}",
+                from: 'jenkins@example.com',
+                replyTo: 'jenkins@example.com'
+            )
+        }
+    }
+
 }
 
-post {
-    always {
-        emailext (
-            subject: "Pipeline Status: ${BUILD_NUMBER}",
-            body: """
-                <html>
-                    <body>
-                        <p>Build Status: ${BUILD_STATUS}</p>
-                        <p>Build Number: ${BUILD_NUMBER}</p>
-                        <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
-                    </body>
-                </html>
-            """,
-            mimeType: 'text/html',
-            to: "${Receiver_email}",
-            from: 'jenkins@example.com',
-            replyTo: 'jenkins@example.com'
-        )
-    }
-}
