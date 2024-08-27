@@ -27,7 +27,7 @@ pipeline {
         stage("Trivy file scan"){
             steps{
                 script{
-                    sh'trivy fs --format table -o trivyfs.html . '  #scans the filesystem display it in humanreadable format (tabler) stores output in trivyfs.html file in html format scan the fs in current working dir
+                    sh'trivy fs --format table -o trivyfs.html . '  //scans the filesystem display it in humanreadable format (tabler) stores output in trivyfs.html file in html format scan the fs in current working dir
                 }
             }
         }
