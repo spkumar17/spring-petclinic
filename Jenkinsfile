@@ -92,6 +92,7 @@ pipeline {
                 body: """
                     <html>
                         <body>
+                            <p>Job Name: ${JOB_NAME}</p>
                             <p>Build Status: ${currentBuild.currentResult}</p>
                             <p>Build Number: ${BUILD_NUMBER}</p>
                             <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
