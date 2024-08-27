@@ -100,7 +100,7 @@ pipeline {
                     </html>
                 """,
                 mimeType: 'text/html',
-                to: "${Receiver_email}",
+                to: "prasannakumarsinganamalla@gmail.com",
                 from: 'jenkins@example.com',
                 replyTo: 'jenkins@example.com'
             )
