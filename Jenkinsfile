@@ -92,6 +92,10 @@ pipeline {
                 body: """
                     <html>
                         <body>
+                            <p>Hi DevOps team,</p>
+                            <p>Please find below the result of the pipeline, which builds the Petclinic application, stores the Docker image in Docker Hub, and integrates several security tools.</p>
+                            <p> For more information please find the below console output.</p>
+                            <p> Thank you </p>
                             <p>Job Name: ${JOB_NAME}</p>
                             <p>Build Status: ${currentBuild.currentResult}</p>
                             <p>Build Number: ${BUILD_NUMBER}</p>
@@ -100,7 +104,7 @@ pipeline {
                     </html>
                 """,
                 mimeType: 'text/html',
-                to: "prasannakumarsinganamalla@gmail.com",
+                to: "${Receiver_email}",
                 from: 'jenkins@example.com',
                 replyTo: 'jenkins@example.com'
             )
