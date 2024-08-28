@@ -35,6 +35,19 @@
     <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
     <spring-format.version>0.0.41</spring-format.version>
 
+    <distributionManagement>
+      <repository>
+        <id>maven-releases</id>
+        <!-- CHANGE HERE by your team Nexus server -->
+        <url>http://54.162.2.17:8081/repository/maven-releases/</url>
+      </repository>
+      <snapshotRepository>
+        <id>maven-snapshots</id>
+        <!-- CHANGE HERE by your team Nexus server -->
+        <url>http://54.162.2.17:8081/repository/maven-snapshots/</url>
+      </snapshotRepository>
+    </distributionManagement>
+
   </properties>
 
   <dependencies>
@@ -303,6 +316,12 @@
   </licenses>
 
   <repositories>
+    
+    <repository>
+      <id>maven-releases</id>
+      <name>maven-releases</name>
+      <url>http://54.162.2.17:8081/repository/maven-releases/</url>
+    </repository>
     <repository>
       <id>spring-snapshots</id>
       <name>Spring Snapshots</name>
