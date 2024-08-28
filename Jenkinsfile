@@ -96,6 +96,17 @@ pipeline {
                 }
             }    
         }
+
+        stage("Docker Image to Nexus") {
+            steps {
+                withDockerRegistry([credentialsId: 'petclinic-image', url: 'http://3.81.210.172:8082/repository/docker-host/']) {
+                    // Log in to Docker registry (handled by withDockerRegistry)
+                    sh 'docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
+                }
+            }
+        }
+
+
         // stage('Trivy Image Scan') {
         //     steps {
         //         script {
