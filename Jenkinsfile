@@ -76,6 +76,15 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
+
+        stage("nexus "){
+            steps {
+                configFileProvider([configFile(fileId: 'da02a396-929b-4f58-8117-a443c901e6cf', variable: 'mavensettings')]) {
+
+                    sh" mvn -s $mavensettings clean deploy -DskipTests=true "
+                }
+            }
+        }
         stage('Building Docker Image') {
             
             steps {
