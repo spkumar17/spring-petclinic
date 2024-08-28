@@ -99,12 +99,18 @@ pipeline {
 
         stage("Docker Image to Nexus") {
             steps {
-                withDockerRegistry([credentialsId: 'petclinic-image', url: 'http://3.81.210.172:8081/repository/Pelclinic-image/']) {
-                    // Log in to Docker registry (handled by withDockerRegistry)
+                withCredentials([usernamePassword(credentialsId: 'petclinic-image', 
+                                         usernameVariable: 'NEXUS_USERNAME', 
+                                         passwordVariable: 'NEXUS_PASSWORD')]) {
+                    // Log in to Docker registry
+                    sh 'echo "${NEXUS_PASSWORD}" | docker login http://3.81.210.172:8081/repository/Pelclinic-image/ -u "${NEXUS_USERNAME}" --password-stdin'
+
+                    // Push Docker image
                     sh 'docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
                 }
-            }
-        }
+    }
+}
+
 
 
         // stage('Trivy Image Scan') {
