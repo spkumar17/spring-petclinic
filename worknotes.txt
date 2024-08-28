@@ -109,3 +109,12 @@ USE petclinic;
 show TABELES;
 SELECT * FROM owners;
 SELECT * FROM pet;
+
+
+
+sudo rm -rf /var/lib/jenkins/workspace/*
+this helps me to create my workspace
+
+for nexus we need to install  :::::---->config file provider plugin  ---> in jenkins ----> then seleect global maven settings.xml got to managed files and then we need to add server credenticals there
+
+to push docker image to nexux refer this blog --->https://bhairavisanskriti.hashnode.dev/publish-docker-images-to-nexus-using-jenkins
