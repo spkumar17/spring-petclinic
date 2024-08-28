@@ -61,15 +61,15 @@ pipeline {
                 }
             }
         }
-        stage('OWASP Dependency-Check') {
-            when {
-                branch 'Dev1' // Run this stage only if the branch is 'main'
-            }
+        // stage('OWASP Dependency-Check') {
+        //     // when {
+        //     //     branch 'Dev1' // Run this stage only if the branch is 'main'
+        //     // }
             
-            steps {
-                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check', outputFile: 'owasp.txt'
-            }
-        }
+        //     steps {
+        //         dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check', outputFile: 'owasp.txt'
+        //     }
+        // }
         
         stage('Maven Package') {
             steps {
@@ -105,7 +105,6 @@ pipeline {
         //     }
         // }
 
-
         stage('pushing image to Docker hub') {
             
             steps {
@@ -133,6 +132,8 @@ pipeline {
                                 <p>Build Status: ${currentBuild.currentResult}</p>
                                 <p>Build Number: ${BUILD_NUMBER}</p>
                                 <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
+                                <p>Maven Snapshots Repository: <a href="http://3.81.210.172:8081/#browse/browse:maven-snapshots">Nexus Repository</a></p>
+
                             </body>
                         </html>
                     """,
