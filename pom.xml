@@ -34,8 +34,8 @@
     <maven-checkstyle.version>3.3.1</maven-checkstyle.version>
     <nohttp-checkstyle.version>0.0.11</nohttp-checkstyle.version>
     <spring-format.version>0.0.41</spring-format.version>
-
-    <distributionManagement>
+  </properties>
+  <distributionManagement>
       <repository>
         <id>maven-releases</id>
         <!-- CHANGE HERE by your team Nexus server -->
@@ -47,8 +47,6 @@
         <url>http://3.81.210.172:8081/repository/maven-snapshots/</url>
       </snapshotRepository>
     </distributionManagement>
-
-  </properties>
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
