@@ -41,7 +41,11 @@
         <!-- CHANGE HERE by your team Nexus server -->
         <url>http://3.81.210.172:8081/repository/maven-releases/</url>
       </repository>
-      <!-- removed maven-snapshots if requried please add-->
+      <snapshotRepository>
+        <id>maven-snapshots</id>
+        <!-- CHANGE HERE by your team Nexus server -->
+        <url>http://3.81.210.172:8081/repository/maven-snapshots/</url>
+      </snapshotRepository>
     </distributionManagement>
 
   <dependencies>
