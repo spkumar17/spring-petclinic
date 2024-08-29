@@ -101,13 +101,17 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'Nexus', usernameVariable: 'USER', passwordVariable: 'PSW')]) {
                     // Log in to Docker registry
-                    sh 'echo "${PSW} | docker login -u ${USER} --password-stdin 3.81.207.159:8082'
+                    sh '''
+                    echo ${PSW} | docker login -u ${USER} --password-stdin 3.81.207.159:8082
+                    '''
 
                     // Push Docker image
-                    sh 'docker push 3.81.207.159:8082/petclinic:${BUILD_NUMBER}'
+                    sh '''
+                    docker push 3.81.207.159:8082/petclinic:${BUILD_NUMBER}
+                    '''
                 }
-    }
-}
+            }
+        }
 
 
 
