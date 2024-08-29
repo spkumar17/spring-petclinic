@@ -12,12 +12,12 @@ pipeline {
         Receiver_email = credentials('Receiver_email')
     }
     
-    // stages {
-    //     stage('Checkout Code') {
-    //         steps {
-    //             git branch: 'main', url: 'https://github.com/spkumar17/spring-petclinic.git'
-    //         }
-    //     }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/spkumar17/spring-petclinic.git'
+            }
+        }
 
         stage('compile') {
             steps {
@@ -134,7 +134,7 @@ pipeline {
     //             }
     //         }    
     //     }
-    // }
+        }
 
         post {
             always {
