@@ -70,13 +70,18 @@ pipeline {
         }
         stage('OWASP Dependency-Check') {
             // when {
-            //     branch 'Dev1' // Run this stage only if the branch is 'main'
+            //     branch 'Dev1' // Run this stage only if the branch is 'Dev1'
             // }
             
             steps {
                 
                 dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check'
 
+            }
+            post {
+                always {
+                    dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                }
             }
         }
         
