@@ -16,51 +16,58 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/spkumar17/spring-petclinic.git'
+                echo 'Checkout Code stage completed'
             }
         }
 
         stage('compile') {
             steps {
                 sh 'mvn compile'
+                echo 'Compile stage completed'
             }
         }
 
-        // stage("Trivy file scan"){
-        //     steps{
-        //         script{
-        //             sh'trivy fs --format table -o trivyfs.html . '  //scans the filesystem display it in humanreadable format (tabler) stores output in trivyfs.html file in html format scan the fs in current working dir
-        //         }
-        //     }
-        // }
+        stage("Trivy file scan"){
+            steps{
+                script{
+                    sh'trivy fs --format table -o trivyfs.html . '  //scans the filesystem display it in humanreadable format (tabler) stores output in trivyfs.html file in html format scan the fs in current working dir
+                    echo 'Trivy file scan stage completed'
+                }
+            }
+        }
         
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         script {
-        //             // Run Maven with SonarQube plugin for analysis
-        //             withSonarQubeEnv('SonarQubeScanner') {
-        //                 sh """
-        //                     mvn sonar:sonar -Dsonar.login="${SONAR_AUTH_TOKEN}" \
-        //                     -Dsonar.projectName=spring-petclinic \
-        //                     -Dsonar.java.binaries=. \
-        //                     -Dsonar.projectKey=spring-petclinic
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Run Maven with SonarQube plugin for analysis
+                    withSonarQubeEnv('SonarQubeScanner') {
+                        sh """
+                            mvn sonar:sonar -Dsonar.login="${SONAR_AUTH_TOKEN}" \
+                            -Dsonar.projectName=spring-petclinic \
+                            -Dsonar.java.binaries=. \
+                            -Dsonar.projectKey=spring-petclinic
+                        """
+                        echo 'SonarQube Analysis stage completed'
+
+                    }
+                }
+            }
+        }
         
-        // stage("Quality Gate") {
-        //     steps {
-        //         timeout(time: 1, unit: 'HOURS') {
-        //             script {
-        //                 def qg = waitForQualityGate()
-        //                 if (qg.status != 'OK') {
-        //                     error "Pipeline aborted due to quality gate failure: ${qg.status}"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    script {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                        echo 'Quality Gate stage completed'
+
+                    }
+                }
+            }
+        }
         // stage('OWASP Dependency-Check') {
         //     // when {
         //     //     branch 'Dev1' // Run this stage only if the branch is 'main'
@@ -74,28 +81,33 @@ pipeline {
         stage('Maven Package') {
             steps {
                 sh 'mvn clean package -DskipTests'
+                echo 'Maven Package stage completed'
+
             }
         }
 
-        // stage("Maven deploy nexus "){
-        //     steps {
-        //         configFileProvider([configFile(fileId: 'da02a396-929b-4f58-8117-a443c901e6cf', variable: 'mavensettings')]) {
+        stage("Maven deploy nexus "){
+            steps {
+                configFileProvider([configFile(fileId: 'da02a396-929b-4f58-8117-a443c901e6cf', variable: 'mavensettings')]) {
 
-        //             sh" mvn -s $mavensettings clean deploy -DskipTests=true "
-        //         }
-        //     }
-        // }
-        // stage('Building Docker Image') {
+                    sh" mvn -s $mavensettings clean deploy -DskipTests=true "
+                    echo 'Maven deploy Nexus stage completed'
+
+                }
+            }
+        }
+        stage('Building Docker Image') {
             
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
-        //                 sh "docker build -t prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER} ."
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
+                        sh "docker build -t prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER} ."
+                        echo 'Building Docker Image stage completed'
 
-        //             }
-        //         }
-        //     }    
-        // }
+                    }
+                }
+            }    
+        }
 
         stage("Docker Image to Nexus") {
             steps {
@@ -112,6 +124,8 @@ pipeline {
                     docker push 54.152.237.175:8082/petclinic:${BUILD_NUMBER}
 
                     '''
+                    echo 'Docker Image to Nexus stage completed'
+
                 }
             }
         }
@@ -127,16 +141,18 @@ pipeline {
         //     }
         // }
 
-    //     stage('pushing image to Docker hub') {
+        stage('pushing image to Docker hub') {
             
-    //         steps {
-    //             script {
-    //                 withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
-    //                     sh "docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}"
-    //                 }
-    //             }
-    //         }    
-    //     }
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
+                        sh "docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}"
+                        echo 'Pushing image to Docker Hub stage completed'
+
+                    }
+                }
+            }    
+        }
         }
 
         post {
@@ -155,6 +171,8 @@ pipeline {
                                 <p>Build Number: ${BUILD_NUMBER}</p>
                                 <p>Check the <a href="${BUILD_URL}">console output</a>.</p>
                                 <p>Maven Snapshots Repository: <a href="http://3.81.210.172:8081/#browse/browse:maven-snapshots">Nexus Repository</a></p>
+                                <p>Docker Repository: <a href="http://54.152.237.175:8082">Nexus Docker Repository</a></p>
+
 
                             </body>
                         </html>
