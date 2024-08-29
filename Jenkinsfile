@@ -103,7 +103,7 @@ pipeline {
                                          usernameVariable: 'NEXUS_USERNAME', 
                                          passwordVariable: 'NEXUS_PASSWORD')]) {
                     // Log in to Docker registry
-                    sh 'echo "${NEXUS_PASSWORD}" | docker login http://3.81.210.172:8082/repository/Pelclinic-image/ -u "${NEXUS_USERNAME}" --password-stdin'
+                    sh 'echo "${NEXUS_PASSWORD}" | docker login http://3.81.207.159:8082/repository/Pelclinic-image/ -u "${NEXUS_USERNAME}" --password-stdin'
 
                     // Push Docker image
                     sh 'docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
