@@ -75,7 +75,7 @@ pipeline {
             
             steps {
                 
-                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check' ,  outputDirectory: 'dependency-check-reports'
+                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check'
 
             }
         }
