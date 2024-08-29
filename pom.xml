@@ -39,12 +39,12 @@
       <repository>
         <id>maven-releases</id>
         <!-- CHANGE HERE by your team Nexus server -->
-        <url>http://52.90.36.17:8081/repository/maven-releases/</url>
+        <url>http://54.152.237.175:8081/repository/maven-releases/</url>
       </repository>
       <snapshotRepository>
         <id>maven-snapshots</id>
         <!-- CHANGE HERE by your team Nexus server -->
-        <url>http://52.90.36.17:8081/repository/maven-snapshots/</url>
+        <url>http://54.152.237.175:8081/repository/maven-snapshots/</url>
       </snapshotRepository>
     </distributionManagement>
 
@@ -321,7 +321,7 @@
     <repository>
       <id>maven-releases</id>
       <name>maven-releases</name>
-      <url>http://3.81.207.159:8081/repository/maven-releases/</url>
+      <url>http://54.152.237.175/:8081/repository/maven-releases/</url>
     </repository>
     <repository>
       <id>spring-snapshots</id>
