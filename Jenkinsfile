@@ -74,8 +74,10 @@ pipeline {
             // }
             
             steps {
+                dependencycheck additionalArguments: '--scan target/', --format HTML --out dependency-check-report
+
                // dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check'
-                dependencyCheck additionalArguments: '--scan target/ --format HTML', odcInstallation: 'OWASP Check', outputDirectory: 'dependency-check-report'
+                //dependencyCheck additionalArguments: '--scan target/ --format HTML', odcInstallation: 'OWASP Check', outputDirectory: 'dependency-check-report'
 
             }
         }
