@@ -85,17 +85,17 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Building Docker Image') {
+        // stage('Building Docker Image') {
             
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
-                        sh "docker build -t prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER} ."
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'docker-credentials', toolName: 'Docker') {
+        //                 sh "docker build -t prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER} ."
 
-                    }
-                }
-            }    
-        }
+        //             }
+        //         }
+        //     }    
+        // }
 
         stage("Docker Image to Nexus") {
             steps {
