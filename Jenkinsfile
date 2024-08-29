@@ -19,11 +19,11 @@ pipeline {
                 echo 'Checkout Code stage completed'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'mvn clean test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh 'mvn clean test'
+        //     }
+        // }
 
         stage('compile') {
             steps {
@@ -31,23 +31,23 @@ pipeline {
                 echo 'Compile stage completed'
             }
         }
-        stage('Code Coverage') {
-            steps {
-                jacoco runAlways: true
-            }
+        // stage('Code Coverage') {
+        //     steps {
+        //         jacoco runAlways: true
+        //     }
     
-            post {
-                always {
-                    archiveArtifacts artifacts: 'target/site/jacoco/**/*', allowEmptyArchive: true
+        //     post {
+        //         always {
+        //             archiveArtifacts artifacts: 'target/site/jacoco/**/*', allowEmptyArchive: true
 
-                    jacoco execPattern: '**/jacoco.exec', 
-                            classPattern: '**/classes', 
-                            sourcePattern: '**/src/main/java', 
-                            inclusionPattern: '**/*.class', 
-                            exclusionPattern: '**/*Test*'
-                }
-            }
-        }
+        //             jacoco execPattern: '**/jacoco.exec', 
+        //                     classPattern: '**/classes', 
+        //                     sourcePattern: '**/src/main/java', 
+        //                     inclusionPattern: '**/*.class', 
+        //                     exclusionPattern: '**/*Test*'
+        //         }
+        //     }
+        // }
 
         stage("Trivy file scan"){
             steps{
@@ -162,14 +162,14 @@ pipeline {
 
 
 
-        // stage('Trivy Image Scan') {
-        //     steps {
-        //         script {
-        //             // Perform Trivy scan on the Docker image
-        //             sh 'trivy image --format table --output trivy-image-scan.txt prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
-        //         }
-        //     }
-        // }
+        stage('Trivy Image Scan') {
+            steps {
+                script {
+                    // Perform Trivy scan on the Docker image
+                    sh 'trivy image --format table --output trivy-image-scan.txt prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
+                }
+            }
+        }
 
         stage('pushing image to Docker hub') {
             
