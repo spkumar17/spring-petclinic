@@ -118,3 +118,22 @@ this helps me to create my workspace
 for nexus we need to install  :::::---->config file provider plugin  ---> in jenkins ----> then seleect global maven settings.xml got to managed files and then we need to add server credenticals there
 
 to push docker image to nexux refer this blog --->https://bhairavisanskriti.hashnode.dev/publish-docker-images-to-nexus-using-jenkins
+
+
+for nexusdocker make sure to add url in inscure registeries.
+
+edit the file 
+sudo nano /etc/docker/daemon.json
+
+add the url 
+
+{
+  "insecure-registries": ["REGISTRY_URL"]
+}
+
+restart the docker 
+
+sudo systemctl restart docker
+
+check 
+docker info | grep "Insecure Registries"
