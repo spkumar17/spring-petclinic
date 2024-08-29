@@ -166,7 +166,7 @@ pipeline {
             steps {
                 script {
                     // Perform Trivy scan on the Docker image
-                    sh 'trivy image --format table --output trivy-image-scan.txt prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
+                    sh 'trivy image --scanners vuln --format table --output trivy-image-scan.txt prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
                 }
             }
         }
