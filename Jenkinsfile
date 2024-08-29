@@ -99,14 +99,12 @@ pipeline {
 
         stage("Docker Image to Nexus") {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'petclinic-image', 
-                                         usernameVariable: 'NEXUS_USERNAME', 
-                                         passwordVariable: 'NEXUS_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'Nexus', usernameVariable: 'USER', passwordVariable: 'PSW')]) {
                     // Log in to Docker registry
-                    sh 'echo "${NEXUS_PASSWORD}" | docker login http://3.81.207.159:8081 -u "${NEXUS_USERNAME}" --password-stdin'
+                    sh 'echo "${PSW} | docker login -u ${USER} --password-stdin 3.81.207.159:8082'
 
                     // Push Docker image
-                    sh 'docker push prasannakumarsinganamalla431/petclinic:${BUILD_NUMBER}'
+                    sh 'docker push 3.81.207.159:8082/petclinic:${BUILD_NUMBER}'
                 }
     }
 }
