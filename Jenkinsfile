@@ -188,7 +188,7 @@ pipeline {
                     to: "${Receiver_email}",
                     from: 'jenkins@example.com',
                     replyTo: 'jenkins@example.com',
-                    attachmentsPattern: 'trivyfs.html,trivy-image-scan.txt,dependencyCheckreport.txt'
+                    attachmentsPattern: 'trivyfs.html , trivy-image-scan.txt , dependency-check-report.xml'
                 )
             }
         }
