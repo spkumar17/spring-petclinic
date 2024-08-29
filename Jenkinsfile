@@ -68,15 +68,15 @@ pipeline {
                 }
             }
         }
-        // stage('OWASP Dependency-Check') {
-        //     // when {
-        //     //     branch 'Dev1' // Run this stage only if the branch is 'main'
-        //     // }
+        stage('OWASP Dependency-Check') {
+            // when {
+            //     branch 'Dev1' // Run this stage only if the branch is 'main'
+            // }
             
-        //     steps {
-        //         dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check', outputFile: 'owasp.txt'
-        //     }
-        // }
+            steps {
+                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check', outputFile: 'owasp.txt'
+            }
+        }
         
         stage('Maven Package') {
             steps {
