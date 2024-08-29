@@ -107,7 +107,8 @@ pipeline {
 
                     // Push Docker image
                     sh '''
-                    docker push http://54.152.237.175:8082/petclinic:${BUILD_NUMBER}
+                    docker push 54.152.237.175:8082/petclinic:${BUILD_NUMBER}
+
                     '''
                 }
             }
