@@ -19,11 +19,33 @@ pipeline {
                 echo 'Checkout Code stage completed'
             }
         }
+        stage('Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
 
         stage('compile') {
             steps {
                 sh 'mvn compile'
                 echo 'Compile stage completed'
+            }
+        }
+        stage('Code Coverage') {
+            steps {
+                jacoco runAlways: true
+            }
+    
+            post {
+                always {
+                    archiveArtifacts artifacts: 'target/site/jacoco/**/*', allowEmptyArchive: true
+
+                    jacoco execPattern: '**/jacoco.exec', 
+                            classPattern: '**/classes', 
+                            sourcePattern: '**/src/main/java', 
+                            inclusionPattern: '**/*.class', 
+                            exclusionPattern: '**/*Test*'
+                }
             }
         }
 
@@ -68,6 +90,7 @@ pipeline {
                 }
             }
         }
+        
         stage('OWASP Dependency-Check') {
             // when {
             //     branch 'Dev1' // Run this stage only if the branch is 'Dev1'
