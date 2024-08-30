@@ -98,7 +98,7 @@ pipeline {
             
             steps {
                 
-                dependencyCheck additionalArguments: '--scan target/', odcInstallation: 'OWASP Check'
+                dependencyCheck additionalArguments: '--scan /workspace/pom.xml ', odcInstallation: 'OWASP Check'
 
             }
             post {
