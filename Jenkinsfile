@@ -407,32 +407,32 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                     
-# Step 1: Update package index
-echo "Updating package index..."
-sudo apt update
+                    # Step 1: Update package index
+                    echo "Updating package index..."
+s                   udo apt update
 
-# Step 2: Install required dependencies
-echo "Installing curl and unzip..."
-sudo apt install -y curl unzip
+                    # Step 2: Install required dependencies
+                    echo "Installing curl and unzip..."
+                    sudo apt install -y curl unzip
 
-# Step 3: Download the AWS CLI installer
-echo "Downloading the AWS CLI installer..."
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    # Step 3: Download the AWS CLI installer
+                    echo "Downloading the AWS CLI installer..."
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-# Step 4: Unzip the installer
-echo "Unzipping the installer..."
-unzip awscliv2.zip
+                    # Step 4: Unzip the installer
+                    echo "Unzipping the installer..."
+                    unzip awscliv2.zip
 
-# Step 5: Run the installer
-echo "Running the installer..."
-sudo ./aws/install
+                    # Step 5: Run the installer
+                    echo "Running the installer..."
+                    sudo ./aws/install
 
-# Step 6: Verify the installation
-echo "Verifying the installation..."
-aws --version
+                    # Step 6: Verify the installation
+                    echo "Verifying the installation..."
+                    aws --version
 
-echo "AWS CLI installation completed!"
-                '''
+                    echo "AWS CLI installation completed!"
+                     '''
             }
             }
         stage('Upload artifact to S3') {
