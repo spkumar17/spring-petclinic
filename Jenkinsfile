@@ -406,23 +406,32 @@ pipeline {
         stage('AWS CLI Installation') {
             steps {
                 sh '''#!/bin/bash
-                    # Update package list
-                    sudo apt-get update
                     
-                    # Install dependencies (including unzip)
-                    sudo apt-get install -y unzip curl
+# Step 1: Update package index
+echo "Updating package index..."
+sudo apt update
 
-                    # Download the AWS CLI bundle
-                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+# Step 2: Install required dependencies
+echo "Installing curl and unzip..."
+sudo apt install -y curl unzip
 
-                    # Unzip the bundle
-                    sudo unzip awscliv2.zip
+# Step 3: Download the AWS CLI installer
+echo "Downloading the AWS CLI installer..."
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-                    # Run the installer
-                    sudo ./aws/install
+# Step 4: Unzip the installer
+echo "Unzipping the installer..."
+unzip awscliv2.zip
 
-                    # Verify the installation
-                    aws --version
+# Step 5: Run the installer
+echo "Running the installer..."
+sudo ./aws/install
+
+# Step 6: Verify the installation
+echo "Verifying the installation..."
+aws --version
+
+echo "AWS CLI installation completed!"
                 '''
             }
             }
