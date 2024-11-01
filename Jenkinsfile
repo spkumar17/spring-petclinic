@@ -4,6 +4,7 @@
 //     tools {
 //         jdk 'jdk17'
 //         maven 'maven3'
+
 //     }
     
 //     environment {
@@ -223,6 +224,7 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven3'
+        Docker 'Docker'
     }
     
     environment {
