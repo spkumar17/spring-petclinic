@@ -402,6 +402,37 @@ pipeline {
                 }
             }    
         }
+        stage('AWS CLI Installation') {
+            steps {
+                sh '''#!/bin/bash
+                    # Update package list
+                    sudo apt-get update
+                    
+                    # Install dependencies (including unzip)
+                    sudo apt-get install -y unzip curl
+
+                    # Download the AWS CLI bundle
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+                    # Unzip the bundle
+                    sudo unzip awscliv2.zip
+
+                    # Run the installer
+                    sudo ./aws/install
+
+                    # Verify the installation
+                    aws --version
+                '''
+            }
+            }
+        stage('Upload artifact to S3') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '021891605639', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) 
+                 {
+                    sh "aws s3 cp ./target/spring-petclinic-3.3.0-SNAPSHOT.jar s3://petclinc-jarfile/"
+                }
+            }
+        }    
         }
 
         // post {
